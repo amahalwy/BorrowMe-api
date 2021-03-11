@@ -14,13 +14,13 @@ const uuidv4 = require("uuid").v4;
 const upload = multer();
 
 const s3 = new AWS.S3({
-  accessKeyId: keys.accessKeyId,
-  secretAccessKey: keys.secretAccessKey,
+  accessKeyId: process.env.accessKeyId,
+  secretAccessKey: process.env.secretAccessKey,
 });
 
 const uploadImage = (file) => {
   const params = {
-    Bucket: keys.S3Bucket,
+    Bucket: process.env.S3Bucket,
     Key: uuidv4(),
     Body: file.buffer,
     ContentType: file.mimetype,
