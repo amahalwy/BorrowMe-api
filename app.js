@@ -12,7 +12,10 @@ require("./config/passport")(passport);
 const path = require("path");
 
 mongoose
-  .connect(process.env.mongoURI, { useNewUrlParser: true })
+  .connect(process.env.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => console.log("Connected to MongoDB successfully"))
   .catch((err) => console.log(err));
 

@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const keys = require("../../config/keys");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const Booking = require("../../models/Booking");
@@ -10,14 +9,14 @@ const validateBookingInput = require("../../validation/bookings");
 const upload = multer();
 
 router.get("/", (req, res) => {
-  Booking.find({ownerId: req.body.id})
+  Booking.find({ ownerId: req.body.id })
     .then((bookings) => res.json(bookings))
     .catch((err) => res.status(400).json(err));
 });
 
 router.get("/:bookingId", (req, res) => {
   Booking.findById(req.params.bookingId)
-    .then(booking => res.json(booking))
+    .then((booking) => res.json(booking))
     .catch((err) => res.status(400).json(err));
 });
 
@@ -39,7 +38,7 @@ router.post(
       postingId: req.body.postingId,
       requestDates: req.body.requestDates,
       price: req.body.price,
-      bookingImage: req.body.bookingImage
+      bookingImage: req.body.bookingImage,
     });
 
     newBooking

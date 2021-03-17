@@ -1,23 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const keys = require("../../config/keys");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
 const Request = require("../../models/Request");
 const multer = require("multer");
-const validateRequestInput = require('../../validation/requests');
+const validateRequestInput = require("../../validation/requests");
 
 const upload = multer();
 
 router.get("/", (req, res) => {
   Request.find()
-    .then(requests => res.json(requests))
-    .catch(err => res.status(400).json(err));
-})
+    .then((requests) => res.json(requests))
+    .catch((err) => res.status(400).json(err));
+});
 
 router.get("/:requestId", (req, res) => {
   Request.findById(req.params.requestId)
-    .then(request => res.json(request))
+    .then((request) => res.json(request))
     .catch((err) => res.status(400).json(err));
 });
 

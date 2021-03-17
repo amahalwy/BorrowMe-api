@@ -1,58 +1,60 @@
-const Validator = require('validator');
-const validText = require('./valid-text');
+const Validator = require("validator");
+const validText = require("./valid-text");
 
 module.exports = function validateSignupInput(data) {
   let errors = {};
 
-  data.firstName = validText(data.firstName) ? data.firstName : '';
-  data.lastName = validText(data.lastName) ? data.lastName : '';
-  data.email = validText(data.email) ? data.email : '';
-  data.password = validText(data.password) ? data.password : '';
-  data.password2 = validText(data.password2) ? data.password2 : '';
-  data.zipCode = validText(data.zipCode) ? data.zipCode : '';
+  data.firstName = validText(data.firstName) ? data.firstName : "";
+  data.lastName = validText(data.lastName) ? data.lastName : "";
+  data.email = validText(data.email) ? data.email : "";
+  data.zipCode = validText(data.zipCode) ? data.zipCode : "";
+  data.password = validText(data.password) ? data.password : "";
+  data.confirmPassword = validText(data.confirmPassword)
+    ? data.confirmPassword
+    : "";
 
   if (Validator.isEmpty(data.firstName)) {
-    errors.firstName = "First Name can't be blank"
+    errors.firstName = "First Name can't be blank";
   }
 
   if (Validator.isEmpty(data.lastName)) {
-    errors.lastName = "Last Name can't be blank"
+    errors.lastName = "Last Name can't be blank";
   }
 
   if (Validator.isEmpty(data.email)) {
-    errors.email = 'Email field is required';
+    errors.email = "Email field is required";
   }
 
   if (!Validator.isEmail(data.email)) {
-    errors.email = 'Email is invalid';
+    errors.email = "Email is invalid";
   }
 
   if (Validator.isEmpty(data.password)) {
-    errors.password = 'Password field is required';
+    errors.password = "Password field is required";
   }
 
   if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
-    errors.password = 'Password must be at least 6 characters';
+    errors.password = "Password must be at least 6 characters";
   }
 
-  if (Validator.isEmpty(data.password2)) {
-    errors.password2 = 'Confirm Password field is required';
+  if (Validator.isEmpty(data.confirmPassword)) {
+    errors.confirmPassword = "Confirm Password field is required";
   }
 
-  if (!Validator.equals(data.password, data.password2)) {
-    errors.password2 = 'Passwords must match';
+  if (!Validator.equals(data.password, data.confirmPassword)) {
+    errors.confirmPassword = "Passwords must match";
   }
 
   if (Validator.isEmpty(data.zipCode)) {
-    errors.zipCode = "Zip code can't be blank"
+    errors.zipCode = "Zip code can't be blank";
   }
 
   if (!Validator.isLength(data.zipCode, { min: 5, max: 5 })) {
-    errors.zipCode = "Zip code is incorrect length"
+    errors.zipCode = "Zip code is incorrect length (5)";
   }
 
   return {
     errors,
-    isValid: Object.keys(errors).length === 0
+    isValid: Object.keys(errors).length === 0,
   };
 };
