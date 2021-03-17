@@ -3,16 +3,11 @@
 
 # Backend
 /node_modules
-/config/keys_dev.js
 
 # dependencies
 /frontend/node_modules
 /.pnp
 .pnp.js
-
-# frontend keys
-/frontend/config/keys_dev.js
-/frontend/src/config/keys_dev.js
 
 # testing
 /coverage
