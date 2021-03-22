@@ -16,7 +16,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => console.log("Connected to MongoDB successfully"))
-  .catch((err: {}) => console.log(err));
+  .catch((err: any) => console.log(err));
 
 app.use(cors());
 app.use(bodyParser.json());
