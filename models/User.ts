@@ -1,7 +1,6 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import mongoose, { model, Schema } from "mongoose";
 
-const UserSchema = new Schema(
+const UserSchema = new mongoose.Schema(
   {
     postings: [{ type: Schema.Types.ObjectId, ref: "Posting" }],
     requests: [{ type: Schema.Types.ObjectId, ref: "Request" }],
@@ -55,4 +54,5 @@ const UserSchema = new Schema(
   }
 );
 
-module.exports = User = mongoose.model("User", UserSchema);
+const User = model("User", UserSchema);
+module.exports = User;

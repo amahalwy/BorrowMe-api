@@ -1,9 +1,23 @@
-const Validator = require("validator");
-const validText = require("./valid-text");
-const validArray = require("./valid-array");
+import Validator from "validator";
+import validText from "./valid-text";
+import validArray from "./valid-array";
 
-module.exports = function validateBookingInput(data) {
-  let errors = {};
+const validateBookingInput = (data: {
+  ownerId: string;
+  requestorId: string;
+  requestorName: string;
+  postingId: string;
+  requestDates: any;
+  price: any;
+}) => {
+  let errors: {
+    ownerId?: string;
+    requestorId?: string;
+    requestorName?: string;
+    postingId?: string;
+    requestDates?: any;
+    price?: any;
+  } = {};
 
   data.ownerId = validText(data.ownerId) ? data.ownerId : "";
   data.requestorId = validText(data.requestorId) ? data.requestorId : "";
@@ -21,7 +35,7 @@ module.exports = function validateBookingInput(data) {
   if (Validator.isEmpty(data.requestorId)) {
     errors.requestorId = "Requestor id field is required.";
   }
-  
+
   if (Validator.isEmpty(data.requestorName)) {
     errors.requestorName = "Requestor name field is required.";
   }
@@ -43,3 +57,5 @@ module.exports = function validateBookingInput(data) {
     isValid: Object.keys(errors).length === 0,
   };
 };
+
+export default validateBookingInput;

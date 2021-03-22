@@ -1,8 +1,22 @@
-const Validator = require("validator");
-const validText = require("./valid-text");
+import Validator from "validator";
+import validText from "./valid-text";
 
-module.exports = function validateSignupInput(data) {
-  let errors = {};
+const validateSignupInput = (data: {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  zipCode?: string;
+  password?: string;
+  confirmPassword?: string;
+}) => {
+  let errors: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    zipCode?: string;
+    password?: string;
+    confirmPassword?: string;
+  } = {};
 
   data.firstName = validText(data.firstName) ? data.firstName : "";
   data.lastName = validText(data.lastName) ? data.lastName : "";
@@ -58,3 +72,5 @@ module.exports = function validateSignupInput(data) {
     isValid: Object.keys(errors).length === 0,
   };
 };
+
+export default validateSignupInput;

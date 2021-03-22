@@ -1,13 +1,12 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+import mongoose, { model, Schema } from "mongoose";
 
-const RequestSchema = new Schema(
+const RequestSchema = new mongoose.Schema(
   {
     requestorId: { type: Schema.Types.ObjectId, ref: "User" },
     receiverId: { type: Schema.Types.ObjectId, ref: "User" },
-    requestorName: { 
+    requestorName: {
       type: String,
-      required: true
+      required: true,
     },
     postingImage: {
       type: String,
@@ -35,4 +34,5 @@ const RequestSchema = new Schema(
   }
 );
 
-module.exports = Request = mongoose.model("Request", RequestSchema);
+const Request = model("Request", RequestSchema);
+module.exports = Request;

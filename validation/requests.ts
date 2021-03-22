@@ -1,9 +1,17 @@
-const Validator = require("validator");
-const validText = require("./valid-text");
-const validArray = require("./valid-array");
+import Validator from "validator";
+import validText from "./valid-text";
+import validArray from "./valid-array";
 
-module.exports = function validateRequestInput(data) {
-  let errors = {};
+const validateRequestInput = (data: {
+  postingId?: string;
+  requestorId?: string;
+  requestDates?: string | string[] | any;
+}) => {
+  let errors: {
+    postingId?: string;
+    requestorId?: string;
+    requestDates?: string;
+  } = {};
 
   data.postingId = validText(data.postingId) ? data.postingId : "";
   data.requestorId = validText(data.requestorId) ? data.requestorId : "";
@@ -18,7 +26,7 @@ module.exports = function validateRequestInput(data) {
   if (Validator.isEmpty(data.requestorId)) {
     errors.requestorId = "Requestor id field is required.";
   }
-  
+
   if (data.requestDates[0] === "") {
     errors.requestDates = "RequestDates field can't be empty.";
   }
@@ -28,3 +36,5 @@ module.exports = function validateRequestInput(data) {
     isValid: Object.keys(errors).length === 0,
   };
 };
+
+export default validateRequestInput;
