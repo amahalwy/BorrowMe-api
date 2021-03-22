@@ -1,8 +1,6 @@
-import { Mongoose } from "mongoose";
-const mongoose = new Mongoose();
-const Schema = mongoose.Schema;
+import mongoose, { model, Schema } from "mongoose";
 
-const RequestSchema = new Schema(
+const RequestSchema = new mongoose.Schema(
   {
     requestorId: { type: Schema.Types.ObjectId, ref: "User" },
     receiverId: { type: Schema.Types.ObjectId, ref: "User" },
@@ -36,4 +34,4 @@ const RequestSchema = new Schema(
   }
 );
 
-export default mongoose.model("Request", RequestSchema);
+export default model("Request", RequestSchema);

@@ -1,8 +1,6 @@
-import { Mongoose } from "mongoose";
-const mongoose = new Mongoose();
-const Schema = mongoose.Schema;
+import mongoose, { model, Schema } from "mongoose";
 
-const UserSchema = new Schema(
+const UserSchema = new mongoose.Schema(
   {
     postings: [{ type: Schema.Types.ObjectId, ref: "Posting" }],
     requests: [{ type: Schema.Types.ObjectId, ref: "Request" }],
@@ -20,11 +18,11 @@ const UserSchema = new Schema(
     },
     password: {
       type: String,
-      required: false,
+      required: true,
     },
     confirmPassword: {
       type: String,
-      required: false,
+      required: true,
     },
     address: {
       type: String,
@@ -56,4 +54,4 @@ const UserSchema = new Schema(
   }
 );
 
-export default mongoose.model("User", UserSchema);
+export default model("User", UserSchema);

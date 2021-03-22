@@ -1,8 +1,6 @@
-import { Mongoose } from "mongoose";
-const mongoose = new Mongoose();
-const Schema = mongoose.Schema;
+import mongoose, { model, Schema } from "mongoose";
 
-const BookingSchema = new Schema(
+const BookingSchema = new mongoose.Schema(
   {
     ownerId: {
       type: String,
@@ -38,4 +36,4 @@ const BookingSchema = new Schema(
   }
 );
 
-export default mongoose.model("Booking", BookingSchema);
+export default model("Booking", BookingSchema);

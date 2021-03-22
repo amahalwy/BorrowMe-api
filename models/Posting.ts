@@ -1,8 +1,6 @@
-import { Mongoose } from "mongoose";
-const mongoose = new Mongoose();
-const Schema = mongoose.Schema;
+import mongoose, { model, Schema } from "mongoose";
 
-const PostingSchema = new Schema(
+const PostingSchema = new mongoose.Schema(
   {
     ownerId: { type: Schema.Types.ObjectId, ref: "User" },
     title: {
@@ -51,4 +49,4 @@ const PostingSchema = new Schema(
   }
 );
 
-export default mongoose.model("Posting", PostingSchema);
+export default model("Posting", PostingSchema);
