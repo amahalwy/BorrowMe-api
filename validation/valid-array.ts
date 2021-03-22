@@ -1,4 +1,4 @@
-const validArray = (arr) => {
+const validArray = (arr: string | any[]) => {
   return Array.isArray(arr) && arr.length > 0;
 };
 

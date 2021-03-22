@@ -1,16 +1,6 @@
 import { String } from "aws-sdk/clients/cloudsearch";
 import { Document } from "mongoose";
 
-interface DocumentProps {
-  ownerId?: string;
-  title?: string;
-  description?: string;
-  price?: string;
-  zipCode?: string;
-  image?: string;
-  tags?: string;
-}
-
 export interface PostingProps extends Document {
   ownerId?: string;
   title?: string;

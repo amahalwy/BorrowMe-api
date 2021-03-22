@@ -49,4 +49,5 @@ const PostingSchema = new mongoose.Schema(
   }
 );
 
-export default model("Posting", PostingSchema);
+const Posting = model("Posting", PostingSchema);
+module.exports = Posting;

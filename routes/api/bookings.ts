@@ -1,11 +1,12 @@
-import { BookingProps } from "./../../typescript/models";
-import { router } from "express";
-import { passport } from "passport";
-import Booking from "../../models/Booking";
-import { multer } from "multer";
+import passport = require("passport");
+import multer = require("multer");
+import { Router } from "express";
+const Booking = require("../../models/Booking");
 import validateBookingInput from "../../validation/bookings";
+import { BookingProps } from "./../../typescript/models";
 
 const upload = multer();
+const router = Router();
 
 router.get("/", (req, res) => {
   Booking.find({ ownerId: req.body.id })
@@ -51,9 +52,8 @@ router.delete(
   (req, res) => {
     Booking.deleteOne({ _id: req.params.id })
       .then(() => res.status(200).json({ message: "Deleted!" }))
-      .catch((error) => res.status(400).json({ error: error }));
+      .catch((error: any) => res.status(400).json({ error: error }));
   }
 );
 
-const bookingsRouter = router;
-export default bookingsRouter;
+module.exports = router;

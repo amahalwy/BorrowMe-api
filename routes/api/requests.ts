@@ -1,11 +1,12 @@
-import { router } from "express";
-import { passport } from "passport";
-import { multer } from "multer";
-import Request from "../../models/Request";
+import passport = require("passport");
+import multer = require("multer");
+import { Router } from "express";
 import validateRequestInput from "../../validation/requests";
 import { RequestProps } from "../../typescript/models";
+const Request = require("../../models/Request");
 
 const upload = multer();
+const router = Router();
 
 router.get("/", (req, res) => {
   Request.find()
@@ -56,5 +57,4 @@ router.delete(
   }
 );
 
-const requestsRouter = router;
-export default requestsRouter;
+module.exports = router;
