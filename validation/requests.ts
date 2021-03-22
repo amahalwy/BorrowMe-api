@@ -2,11 +2,11 @@ import Validator from "validator";
 import validText from "./valid-text";
 import validArray from "./valid-array";
 
-const validateRequestInput = (data: {
+export default function validateRequestInput(data: {
   postingId?: string;
   requestorId?: string;
   requestDates?: string | string[] | any;
-}) => {
+}) {
   let errors: {
     postingId?: string;
     requestorId?: string;
@@ -35,6 +35,4 @@ const validateRequestInput = (data: {
     errors,
     isValid: Object.keys(errors).length === 0,
   };
-};
-
-export default validateRequestInput;
+}

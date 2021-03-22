@@ -1,14 +1,14 @@
 import Validator from "validator";
 import validText from "./valid-text";
 
-const validateSignupInput = (data: {
+export default function validateSignupInput(data: {
   firstName?: string;
   lastName?: string;
   email?: string;
   zipCode?: string;
   password?: string;
   confirmPassword?: string;
-}) => {
+}) {
   let errors: {
     firstName?: string;
     lastName?: string;
@@ -71,6 +71,4 @@ const validateSignupInput = (data: {
     errors,
     isValid: Object.keys(errors).length === 0,
   };
-};
-
-export default validateSignupInput;
+}

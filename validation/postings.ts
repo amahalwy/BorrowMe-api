@@ -2,7 +2,7 @@ import Validator from "validator";
 import validText from "./valid-text";
 import validArray from "./valid-array";
 
-const validatePostingInput = (data: {
+export default function validatePostingInput(data: {
   ownerId?: string;
   title?: string;
   description?: string;
@@ -12,7 +12,7 @@ const validatePostingInput = (data: {
   city?: string;
   zipCode?: string;
   tags?: string | string[] | any;
-}) => {
+}) {
   let errors: {
     ownerId?: string;
     title?: string;
@@ -91,6 +91,4 @@ const validatePostingInput = (data: {
     errors,
     isValid: Object.keys(errors).length === 0,
   };
-};
-
-export default validatePostingInput;
+}
