@@ -1,4 +1,5 @@
 import { uuidv4, v4 } from "uuid";
+import s3 from "./S3";
 
 const uploadImage = (file) => {
   const params = {
@@ -12,4 +13,4 @@ const uploadImage = (file) => {
   return uploadPhoto;
 };
 
-module.exports = uploadImage;
+export default uploadImage;

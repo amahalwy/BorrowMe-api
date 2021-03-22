@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const app = express();
-const users = require("./routes/api/users");
-const postings = require("./routes/api/postings");
-const requests = require("./routes/api/requests");
-const bookings = require("./routes/api/bookings");
 const bodyParser = require("body-parser");
 const passport = require("passport");
 require("./config/passport")(passport);
-const path = require("path");
+
+import usersRouter from "./routes/api/users";
+import requestsRouter from "./routes/api/requests";
+import postingsRouter from "./routes/api/postings";
+import bookingsRouter from "./routes/api/bookings";
 
 mongoose
   .connect(process.env.mongoURI, {
@@ -24,9 +24,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(passport.initialize());
-app.use("/api/users", users);
-app.use("/api/postings", postings);
-app.use("/api/requests", requests);
-app.use("/api/bookings", bookings);
+app.use("/api/users", usersRouter);
+app.use("/api/postings", postingsRouter);
+app.use("/api/requests", requestsRouter);
+app.use("/api/bookings", bookingsRouter);
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
