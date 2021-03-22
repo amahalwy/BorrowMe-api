@@ -1,8 +1,11 @@
 import Validator from "validator";
 import validText from "./valid-text";
 
-const validateLoginInput = (data: { email?: string; password?: string }) => {
-  let errors: {
+export default function validateLoginInput(data: {
+  email?: string;
+  password?: string;
+}) {
+  const errors: {
     email?: string;
     password?: string;
   } = {};
@@ -26,6 +29,4 @@ const validateLoginInput = (data: { email?: string; password?: string }) => {
     errors,
     isValid: Object.keys(errors).length === 0,
   };
-};
-
-export default validateLoginInput;
+}

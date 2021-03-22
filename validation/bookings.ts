@@ -2,14 +2,14 @@ import Validator from "validator";
 import validText from "./valid-text";
 import validArray from "./valid-array";
 
-const validateBookingInput = (data: {
+export default function validateBookingInput(data: {
   ownerId: string;
   requestorId: string;
   requestorName: string;
   postingId: string;
   requestDates: any;
   price: any;
-}) => {
+}) {
   let errors: {
     ownerId?: string;
     requestorId?: string;
@@ -56,6 +56,4 @@ const validateBookingInput = (data: {
     errors,
     isValid: Object.keys(errors).length === 0,
   };
-};
-
-export default validateBookingInput;
+}

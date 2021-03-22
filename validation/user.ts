@@ -1,14 +1,14 @@
 import Validator from "validator";
 import validText from "./valid-text";
 
-const validateUserInput = (data: {
+export default function validateUserInput(data: {
   firstName?: string;
   lastName?: string;
   address?: string;
   city?: string;
   state?: string;
   zipCode?: string;
-}) => {
+}) {
   let errors: {
     firstName?: string;
     lastName?: string;
@@ -53,6 +53,4 @@ const validateUserInput = (data: {
     errors,
     isValid: Object.keys(errors).length === 0,
   };
-};
-
-export default validateUserInput;
+}
