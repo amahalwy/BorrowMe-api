@@ -26,5 +26,5 @@ app.use("/api/users", users);
 app.use("/api/postings", postings);
 app.use("/api/requests", requests);
 app.use("/api/bookings", bookings);
-const port = process.env.PORT || 5000;
+const port = process.env.NODE_ENV === "production" ? process.env.PORT : 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
