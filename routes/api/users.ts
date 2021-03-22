@@ -15,7 +15,7 @@ const Posting = require("../../models/Posting");
 const Booking = require("../../models/Booking");
 const Request = require("../../models/Request");
 const validateSignupInput = require("../../validation/signup");
-const validateLoginInput = require("../../validation/login");
+import validateLoginInput from "../../validation/login";
 const validateUserInput = require("../../validation/user");
 const multer = require("multer");
 
@@ -39,6 +39,22 @@ router.get(
   }
 );
 
+router.get(
+  "/current",
+  (
+    req: any,
+    res: {
+      json: (arg0: any) => any;
+      status: (
+        arg0: number
+      ) => { (): any; new (): any; json: { (arg0: any): any; new (): any } };
+    }
+  ) => {
+    const token = req.body.token;
+    console.log(token);
+  }
+);
+
 router.post(
   "/login",
   (
@@ -49,7 +65,7 @@ router.post(
       ) => {
         (): any;
         new (): any;
-        json: { (arg0: { email: string }): any; new (): any };
+        json: { (arg0: { email?: string }): any; new (): any };
       };
       json: (arg0: { success: boolean; token: string }) => void;
     }
@@ -253,7 +269,6 @@ router.get(
 router.get(
   "/:userId/requests/receiver",
   upload.single("file"),
-  passport.authenticate("jwt", { session: false }),
   (
     req: { params: { userId: any } },
     res: {
