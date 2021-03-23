@@ -10,13 +10,13 @@ const router = Router();
 
 router.get("/", (req, res) => {
   Booking.find({ ownerId: req.body.id })
-    .then((bookings: BookingPropsModel[]) => res.json(bookings))
+    .then((bookings) => res.json(bookings))
     .catch((err: any) => res.status(400).json(err));
 });
 
 router.get("/:bookingId", (req, res) => {
   Booking.findById(req.params.bookingId)
-    .then((booking: BookingPropsModel) => res.json(booking))
+    .then((booking) => res.json(booking))
     .catch((err: any) => res.status(400).json(err));
 });
 
@@ -40,7 +40,7 @@ router.post(
 
     newBooking
       .save()
-      .then((booking: BookingPropsModel) => res.json(booking))
+      .then((booking) => res.json(booking))
       .catch((err) => res.json(err));
   }
 );

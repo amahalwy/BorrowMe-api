@@ -10,7 +10,7 @@ const router = Router();
 
 router.get("/", (req, res) => {
   Posting.find()
-    .then((postings: any) => res.json(postings))
+    .then((postings) => res.json(postings))
     .catch((err: any) => res.status(402).json(err));
 });
 
@@ -21,7 +21,7 @@ router.get("/ownerId", (req, res) => {
       select: "firstName",
     })
     .then(
-      (posting: PostingPropsModel) => {
+      (posting) => {
         res.json(posting);
       },
       (err: any) => res.status(400).json(err)
@@ -30,7 +30,7 @@ router.get("/ownerId", (req, res) => {
 
 router.get("/:postingId", (req, res) => {
   Posting.findById(req.params.postingId)
-    .then((postings: any) => res.json(postings))
+    .then((postings) => res.json(postings))
     .catch((err: any) => res.status(400).json(err));
 });
 

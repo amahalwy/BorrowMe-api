@@ -1,15 +1,18 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
-var Posting = require("../../models/Posting");
+var Posting_1 = __importDefault(require("../../models/Posting"));
 var router = express_1.Router();
 router.get("/", function (req, res) {
-    Posting.find()
+    Posting_1.default.find()
         .then(function (postings) { return res.json(postings); })
         .catch(function (err) { return res.status(402).json(err); });
 });
 router.get("/ownerId", function (req, res) {
-    Posting.findById(req.params.id)
+    Posting_1.default.findById(req.params.id)
         .populate({
         path: "userId",
         select: "firstName",
@@ -19,7 +22,7 @@ router.get("/ownerId", function (req, res) {
     }, function (err) { return res.status(400).json(err); });
 });
 router.get("/:postingId", function (req, res) {
-    Posting.findById(req.params.postingId)
+    Posting_1.default.findById(req.params.postingId)
         .then(function (postings) { return res.json(postings); })
         .catch(function (err) { return res.status(400).json(err); });
 });
