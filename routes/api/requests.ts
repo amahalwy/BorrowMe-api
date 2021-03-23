@@ -3,12 +3,12 @@ import multer = require("multer");
 import { Router } from "express";
 import validateRequestInput from "../../validation/requests";
 import { RequestProps } from "../../typescript/models";
-const Request = require("../../models/Request");
+import Request from "../../models/Request";
 
 const upload = multer();
 const router = Router();
 
-router.get("/", (req, res) => {
+router.get("/", (res: any) => {
   Request.find()
     .then((requests: RequestProps[]) => res.json(requests))
     .catch((err: any) => res.status(400).json(err));
@@ -57,4 +57,4 @@ router.delete(
   }
 );
 
-module.exports = router;
+export default router;

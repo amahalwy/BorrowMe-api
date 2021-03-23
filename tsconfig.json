@@ -2,12 +2,15 @@
   "compilerOptions": {
     "module": "commonjs",
     "esModuleInterop": true,
-    "lib": ["ES6", "ES5"],
+    "lib": ["ES6", "ES5", "DOM"],
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "dist",
-    "baseUrl": "."
+    "baseUrl": ".",
+    "allowJs": true,
+    "checkJs": true,
+    "types": ["**/*.ts"]
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules"]

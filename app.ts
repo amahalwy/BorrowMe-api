@@ -1,13 +1,13 @@
-const mongoose = require("mongoose");
-const express = require("express");
-const cors = require("cors");
+import mongoose from "mongoose";
+import express from "express";
+import cors from "cors";
+import users from "./routes/api/users";
+import postings from "./routes/api/postings";
+import requests from "./routes/api/requests";
+import bookings from "./routes/api/bookings";
+import bodyParser from "body-parser";
+import passport from "passport";
 const app = express();
-const users = require("./routes/api/users");
-const postings = require("./routes/api/postings");
-const requests = require("./routes/api/requests");
-const bookings = require("./routes/api/bookings");
-const bodyParser = require("body-parser");
-const passport = require("passport");
 require("./config/passport")(passport);
 
 mongoose

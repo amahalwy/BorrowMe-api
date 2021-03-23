@@ -50,4 +50,4 @@ const PostingSchema = new mongoose.Schema(
 );
 
 const Posting = model("Posting", PostingSchema);
-module.exports = Posting;
+export default Posting;

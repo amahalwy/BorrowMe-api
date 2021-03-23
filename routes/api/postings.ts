@@ -109,4 +109,4 @@ router.get("/:postingId", (req, res) => {
 //     .catch((err) => res.status(400).json(err));
 // });
 
-module.exports = router;
+export default router;
