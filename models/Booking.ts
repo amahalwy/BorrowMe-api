@@ -1,6 +1,7 @@
+import { BookingPropsModel } from "./../typescript/models";
 import mongoose, { model, Schema } from "mongoose";
 
-const BookingSchema = new mongoose.Schema(
+const BookingSchema = new mongoose.Schema<BookingPropsModel>(
   {
     ownerId: {
       type: String,
@@ -36,5 +37,5 @@ const BookingSchema = new mongoose.Schema(
   }
 );
 
-const Booking = model("Booking", BookingSchema);
+const Booking = model<BookingPropsModel>("Booking", BookingSchema);
 export default Booking;

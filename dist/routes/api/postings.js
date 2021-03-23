@@ -1,39 +1,28 @@
-import passport = require("passport");
-import multer = require("multer");
-import { Router } from "express";
-import { PostingPropsModel } from "../../typescript/models";
-import validatePostingInput from "../../validation/postings";
-import uploadImage from "../../lib/uploadImage";
-const Posting = require("../../models/Posting");
-
-const router = Router();
-
-router.get("/", (req, res) => {
-  Posting.find()
-    .then((postings: any) => res.json(postings))
-    .catch((err: any) => res.status(402).json(err));
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var Posting = require("../../models/Posting");
+var router = express_1.Router();
+router.get("/", function (req, res) {
+    Posting.find()
+        .then(function (postings) { return res.json(postings); })
+        .catch(function (err) { return res.status(402).json(err); });
 });
-
-router.get("/ownerId", (req, res) => {
-  Posting.findById(req.params.id)
-    .populate({
-      path: "userId",
-      select: "firstName",
+router.get("/ownerId", function (req, res) {
+    Posting.findById(req.params.id)
+        .populate({
+        path: "userId",
+        select: "firstName",
     })
-    .then(
-      (posting: PostingPropsModel) => {
+        .then(function (posting) {
         res.json(posting);
-      },
-      (err: any) => res.status(400).json(err)
-    );
+    }, function (err) { return res.status(400).json(err); });
 });
-
-router.get("/:postingId", (req, res) => {
-  Posting.findById(req.params.postingId)
-    .then((postings: any) => res.json(postings))
-    .catch((err: any) => res.status(400).json(err));
+router.get("/:postingId", function (req, res) {
+    Posting.findById(req.params.postingId)
+        .then(function (postings) { return res.json(postings); })
+        .catch(function (err) { return res.status(400).json(err); });
 });
-
 // router.post(
 //   "/",
 //   upload.single("file"),
@@ -41,7 +30,6 @@ router.get("/:postingId", (req, res) => {
 //   (req, res) => {
 //     const { isValid, errors } = validatePostingInput(req.body);
 //     if (!isValid) return res.status(400).json(errors);
-
 //     uploadImage(req.file)
 //       .then((data) => {
 //         const uploadedImageURL = data.Location;
@@ -57,7 +45,6 @@ router.get("/:postingId", (req, res) => {
 //           state: req.body.state,
 //           zipCode: req.body.zipCode,
 //         });
-
 //         newPosting
 //           .save()
 //           .then((posting) => res.json(posting))
@@ -66,7 +53,6 @@ router.get("/:postingId", (req, res) => {
 //       .catch((err) => res.status(400).json(err));
 //   }
 // );
-
 // update
 // router.patch(
 //   "/:postingId",
@@ -75,11 +61,9 @@ router.get("/:postingId", (req, res) => {
 //   (req, res) => {
 //     const { isValid, errors } = validatePostingInput(req.body);
 //     if (!isValid) return res.status(400).json(errors);
-
 //     uploadImage(req.file)
 //       .then((data) => {
 //         const uploadedImageURL = data.Location;
-
 //         Posting.findOne(req.body._id).then((posting: PostingPropsModel) => {
 //           posting.ownerId = req.body.ownerId;
 //           posting.title = req.body.title;
@@ -88,7 +72,6 @@ router.get("/:postingId", (req, res) => {
 //           posting.zipCode = req.body.zipCode;
 //           posting.image = uploadedImageURL;
 //           posting.tags = req.body.tags;
-
 //           posting
 //             .save()
 //             .then((savedPosting) => res.json(savedPosting))
@@ -98,7 +81,6 @@ router.get("/:postingId", (req, res) => {
 //       .catch((err) => res.status(400).json(err));
 //   }
 // );
-
 // delete
 // router.delete("/:id", (req, res) => {
 //   Posting.deleteOne({ _id: req.params.id })
@@ -107,5 +89,4 @@ router.get("/:postingId", (req, res) => {
 //     })
 //     .catch((err) => res.status(400).json(err));
 // });
-
-export default router;
+exports.default = router;

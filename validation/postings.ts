@@ -3,15 +3,15 @@ import validText from "./valid-text";
 import validArray from "./valid-array";
 
 export default function validatePostingInput(data: {
-  ownerId?: string;
-  title?: string;
-  description?: string;
-  price?: string;
-  address?: string;
-  state?: string;
-  city?: string;
-  zipCode?: string;
-  tags?: string | string[] | any;
+  ownerId: string;
+  title: string;
+  description: string;
+  price: string;
+  address: string;
+  state: string;
+  city: string;
+  zipCode: string;
+  tags: string | string[] | any;
 }) {
   let errors: {
     ownerId?: string;

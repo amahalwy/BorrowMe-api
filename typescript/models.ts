@@ -1,7 +1,7 @@
 import { String } from "aws-sdk/clients/cloudsearch";
 import { Document } from "mongoose";
 
-export interface PostingProps extends Document {
+export interface PostingPropsModel extends Document {
   ownerId?: string;
   title?: string;
   description?: string;
@@ -14,7 +14,7 @@ export interface PostingProps extends Document {
   zipCode?: string;
 }
 
-export interface BookingProps extends Document {
+export interface BookingPropsModel extends Document {
   ownerId?: string;
   requestorId?: string;
   requestorName?: string;
@@ -24,7 +24,7 @@ export interface BookingProps extends Document {
   bookingImage?: string;
 }
 
-export interface RequestProps extends Document {
+export interface RequestPropsModel extends Document {
   requestorName?: string;
   requestorId?: string;
   receiverId?: string;
@@ -35,16 +35,17 @@ export interface RequestProps extends Document {
   amount?: string;
 }
 
-export interface UserProps extends Document {
+export interface UserPropsModel extends Document {
   id?: String;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  address?: string;
-  city?: string;
-  state?: string;
-  zipCode?: string;
-  profilePhoto?: string;
-  postings?: string;
-  password?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  address: string;
+  city: string;
+  state: string;
+  zipCode: string;
+  profilePhoto: string;
+  postings: any[];
+  password: string;
+  confirmPassword?: string;
 }

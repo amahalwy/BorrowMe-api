@@ -2,8 +2,8 @@ import Validator from "validator";
 import validText from "./valid-text";
 
 export default function validateLoginInput(data: {
-  email?: string;
-  password?: string;
+  email: string;
+  password: string;
 }) {
   const errors: {
     email?: string;

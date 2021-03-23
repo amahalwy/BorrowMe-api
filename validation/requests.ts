@@ -3,9 +3,9 @@ import validText from "./valid-text";
 import validArray from "./valid-array";
 
 export default function validateRequestInput(data: {
-  postingId?: string;
-  requestorId?: string;
-  requestDates?: string | string[] | any;
+  postingId: string;
+  requestorId: string;
+  requestDates: string | string[] | any;
 }) {
   let errors: {
     postingId?: string;

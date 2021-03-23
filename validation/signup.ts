@@ -2,12 +2,12 @@ import Validator from "validator";
 import validText from "./valid-text";
 
 export default function validateSignupInput(data: {
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  zipCode?: string;
-  password?: string;
-  confirmPassword?: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  zipCode: string;
+  password: string;
+  confirmPassword: string;
 }) {
   let errors: {
     firstName?: string;

@@ -1,6 +1,7 @@
+import { RequestPropsModel } from "./../typescript/models";
 import mongoose, { model, Schema } from "mongoose";
 
-const RequestSchema = new mongoose.Schema(
+const RequestSchema = new mongoose.Schema<RequestPropsModel>(
   {
     requestorId: { type: Schema.Types.ObjectId, ref: "User" },
     receiverId: { type: Schema.Types.ObjectId, ref: "User" },
@@ -34,5 +35,5 @@ const RequestSchema = new mongoose.Schema(
   }
 );
 
-const Request = model("Request", RequestSchema);
+const Request = model<RequestPropsModel>("Request", RequestSchema);
 export default Request;

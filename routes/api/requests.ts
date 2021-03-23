@@ -2,7 +2,7 @@ import passport = require("passport");
 import multer = require("multer");
 import { Router } from "express";
 import validateRequestInput from "../../validation/requests";
-import { RequestProps } from "../../typescript/models";
+import { RequestPropsModel } from "../../typescript/models";
 import Request from "../../models/Request";
 
 const upload = multer();
@@ -10,13 +10,13 @@ const router = Router();
 
 router.get("/", (res: any) => {
   Request.find()
-    .then((requests: RequestProps[]) => res.json(requests))
+    .then((requests) => res.json(requests))
     .catch((err: any) => res.status(400).json(err));
 });
 
 router.get("/:requestId", (req, res) => {
   Request.findById(req.params.requestId)
-    .then((request: RequestProps) => res.json(request))
+    .then((request) => res.json(request))
     .catch((err: any) => res.status(400).json(err));
 });
 
@@ -28,7 +28,7 @@ router.post(
     const { isValid, errors } = validateRequestInput(req.body);
     if (!isValid) return res.status(400).json(errors);
 
-    const newRequest: RequestProps = new Request({
+    const newRequest: RequestPropsModel = new Request({
       requestorName: req.body.requestorName,
       requestorId: req.body.requestorId,
       receiverId: req.body.receiverId,

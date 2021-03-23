@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { ConnectOptions } from "mongoose";
 import express from "express";
 import cors from "cors";
 import users from "./routes/api/users";
@@ -8,15 +8,19 @@ import bookings from "./routes/api/bookings";
 import bodyParser from "body-parser";
 import passport from "passport";
 const app = express();
-require("./config/passport")(passport);
+import passportFn from "./config/passport";
+passportFn(passport);
 
-mongoose
-  .connect(process.env.mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connected to MongoDB successfully"))
-  .catch((err: any) => console.log(err));
+const uri: string | any = process.env.mongoURI;
+const options: ConnectOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+
+mongoose.connect(uri, options);
+
+// .then(() => console.log("Connected to MongoDB successfully"))
+// .catch((err: any) => console.log(err));
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -43,3 +47,5 @@ app.listen(port, () => console.log(`Server is running on port ${port}`));
 //   "ts-node": "^9.1.1",
 //   "typescript": "^4.2.3"
 // }
+
+// "server": "nodemon -x ts-node app.ts",

@@ -1,9 +1,5 @@
 import { Authenticator } from "passport";
-import {
-  StrategyOptions,
-  VerifiedCallback,
-  VerifyCallback,
-} from "passport-jwt";
+import { StrategyOptions, VerifyCallback } from "passport-jwt";
 import passport = require("passport-jwt");
 const User = require("../models/User");
 const ExtractJwt = passport.ExtractJwt;
@@ -14,7 +10,7 @@ const options: StrategyOptions = {
   secretOrKey: process.env.secretOrKey,
 };
 
-module.exports = (passport: Authenticator) => {
+export default (passport: { use: (arg0: passport.Strategy) => void }) => {
   passport.use(
     new JwtStrategy(
       options,

@@ -1,16 +1,11 @@
 {
   "compilerOptions": {
+    "target": "es5",
     "module": "commonjs",
-    "esModuleInterop": true,
-    "lib": ["ES6", "ES5", "DOM"],
-    "noImplicitAny": true,
-    "moduleResolution": "node",
-    "sourceMap": true,
     "outDir": "dist",
-    "baseUrl": ".",
-    "allowJs": true,
-    "checkJs": true
-  },
-  "include": ["**/*.ts"],
-  "exclude": ["node_modules"]
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
 }
