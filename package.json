@@ -7,7 +7,7 @@
     "start": "node app.ts",
     "server": "nodemon app.ts",
     "dev": "npm run server",
-    "build": "tsc",
+    "build": "tsc --project tsconfig.json",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
   "repository": {
@@ -29,7 +29,7 @@
     "@babel/preset-env": "^7.11.0",
     "@babel/preset-react": "^7.10.4",
     "aws-sdk": "^2.868.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "babel-loader": "^8.1.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
