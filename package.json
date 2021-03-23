@@ -5,14 +5,12 @@
   "main": "app.ts",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "preserve": "npm run build",
     "prestart": "npm run build",
-    "start": "cross-env NODE_ENV=production node dist/app.js",
+    "start": "cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 node dist/app.js",
     "serve": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/app.js\"",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node --loader ts-node/esm app.ts",
     "dev": "npm run server",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && tsc"
   },
   "repository": {
     "type": "git",
