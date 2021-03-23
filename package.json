@@ -6,9 +6,9 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "preserve": "npm run build",
-    "serve": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/app.js\"",
     "prestart": "npm run build",
     "start": "cross-env NODE_ENV=production node dist/app.js",
+    "serve": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/app.js\"",
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node --loader ts-node/esm app.ts",
     "dev": "npm run server",
