@@ -4,7 +4,7 @@ import { Router } from "express";
 import { PostingPropsModel } from "../../typescript/models";
 import validatePostingInput from "../../validation/postings";
 import uploadImage from "../../lib/uploadImage";
-const Posting = require("../../models/Posting");
+import Posting from "../../models/Posting";
 
 const router = Router();
 

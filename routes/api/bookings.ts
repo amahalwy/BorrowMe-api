@@ -1,7 +1,7 @@
 import passport = require("passport");
 import multer = require("multer");
 import { Router } from "express";
-const Booking = require("../../models/Booking");
+import Booking from "../../models/Booking";
 import validateBookingInput from "../../validation/bookings";
 import { BookingPropsModel } from "./../../typescript/models";
 
