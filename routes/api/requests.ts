@@ -11,13 +11,13 @@ const router = Router();
 router.get("/", (req, res) => {
   Request.find()
     .then((requests: RequestProps[]) => res.json(requests))
-    .catch((err: {}) => res.status(400).json(err));
+    .catch((err: any) => res.status(400).json(err));
 });
 
 router.get("/:requestId", (req, res) => {
   Request.findById(req.params.requestId)
     .then((request: RequestProps) => res.json(request))
-    .catch((err: {}) => res.status(400).json(err));
+    .catch((err: any) => res.status(400).json(err));
 });
 
 router.post(
@@ -42,7 +42,7 @@ router.post(
     newRequest
       .save()
       .then((request) => res.json(request))
-      .catch((err: {}) => res.json(err));
+      .catch((err) => res.json(err));
   }
 );
 
@@ -53,7 +53,7 @@ router.delete(
   (req, res) => {
     Request.deleteOne({ _id: req.params.id })
       .then(() => res.status(200).json({ message: "Deleted!" }))
-      .catch((error: {}) => res.status(400).json({ error: error }));
+      .catch((error: any) => res.status(400).json({ error: error }));
   }
 );
 

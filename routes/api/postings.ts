@@ -32,7 +32,7 @@ router.get("/ownerId", (req, res) => {
 router.get("/:postingId", (req, res) => {
   Posting.findById(req.params.postingId)
     .then((postings: any) => res.json(postings))
-    .catch((err: {}) => res.status(400).json(err));
+    .catch((err: any) => res.status(400).json(err));
 });
 
 // router.post(
@@ -62,9 +62,9 @@ router.get("/:postingId", (req, res) => {
 //         newPosting
 //           .save()
 //           .then((posting) => res.json(posting))
-//           .catch((err: {}) => res.json(err));
+//           .catch((err) => res.json(err));
 //       })
-//       .catch((err: {}) => res.status(400).json(err));
+//       .catch((err) => res.status(400).json(err));
 //   }
 // );
 
@@ -93,10 +93,10 @@ router.get("/:postingId", (req, res) => {
 //           posting
 //             .save()
 //             .then((savedPosting) => res.json(savedPosting))
-//             .catch((err: {}) => res.json(err));
+//             .catch((err) => res.json(err));
 //         });
 //       })
-//       .catch((err: {}) => res.status(400).json(err));
+//       .catch((err) => res.status(400).json(err));
 //   }
 // );
 
@@ -106,7 +106,7 @@ router.get("/:postingId", (req, res) => {
 //     .then(() => {
 //       res.json("Posting deleted successfully!");
 //     })
-//     .catch((err: {}) => res.status(400).json(err));
+//     .catch((err) => res.status(400).json(err));
 // });
 
 module.exports = router;

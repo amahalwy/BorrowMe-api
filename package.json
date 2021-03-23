@@ -5,7 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "start": "ts-node app.ts",
-    "server": "nodemon app.ts",
+    "server": "nodemon -x ts-node app.ts",
     "dev": "npm run server",
     "build": "tsc --project tsconfig.json",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
