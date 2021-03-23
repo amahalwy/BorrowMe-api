@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "node --loader ts-node/esm app.ts",
     "dev": "npm run server",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && tsc"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
   "repository": {
     "type": "git",
