@@ -11,13 +11,13 @@ const router = Router();
 router.get("/", (req, res) => {
   Booking.find({ ownerId: req.body.id })
     .then((bookings: BookingProps[]) => res.json(bookings))
-    .catch((err: {}) => res.status(400).json(err));
+    .catch((err: any) => res.status(400).json(err));
 });
 
 router.get("/:bookingId", (req, res) => {
   Booking.findById(req.params.bookingId)
     .then((booking: BookingProps) => res.json(booking))
-    .catch((err: {}) => res.status(400).json(err));
+    .catch((err: any) => res.status(400).json(err));
 });
 
 router.post(
