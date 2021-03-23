@@ -5,7 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "start": "cross-env NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 node dist/app.js",
+    "start": "NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 node dist/app.js",
     "serve": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/app.js\"",
     "server": "node --loader ts-node/esm app.ts",
     "dev": "npm run server",
