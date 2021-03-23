@@ -9,8 +9,7 @@
     "outDir": "dist",
     "baseUrl": ".",
     "allowJs": true,
-    "checkJs": true,
-    "types": ["**/*.ts"]
+    "checkJs": true
   },
   "include": ["**/*.ts"],
   "exclude": ["node_modules"]
