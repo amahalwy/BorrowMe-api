@@ -28,3 +28,18 @@ app.use("/api/requests", requests);
 app.use("/api/bookings", bookings);
 const port = process.env.NODE_ENV === "production" ? process.env.PORT : 5000;
 app.listen(port, () => console.log(`Server is running on port ${port}`));
+
+// "devDependencies": {
+//   "@types/bcryptjs": "^2.4.2",
+//   "@types/cors": "^2.8.10",
+//   "@types/express": "^4.17.11",
+//   "@types/multer": "^1.4.5",
+//   "@types/node": "^14.14.35",
+//   "@types/passport": "^1.0.6",
+//   "@types/passport-jwt": "^3.0.5",
+//   "@types/uuid": "^8.3.0",
+//   "@types/validator": "^13.1.3",
+//   "nodemon": "^2.0.4",
+//   "ts-node": "^9.1.1",
+//   "typescript": "^4.2.3"
+// }
