@@ -8,7 +8,7 @@ import {
 import { Router } from "express";
 import bcrypt from "bcryptjs";
 import passport from "passport";
-import jwt, { Secret, SignCallback, SignOptions } from "jsonwebtoken";
+import jwt, { SignCallback, SignOptions } from "jsonwebtoken";
 import User from "../../models/User";
 import Posting from "../../models/Posting";
 import Booking from "../../models/Booking";
@@ -17,6 +17,7 @@ import validateSignupInput from "../../validation/signup";
 import validateLoginInput from "../../validation/login";
 import validateUserInput from "../../validation/user";
 import multer from "multer";
+import { signJwt } from "../../lib/signJwt";
 
 const router = Router();
 const upload = multer();
@@ -51,33 +52,9 @@ router.post("/login", (req, res) => {
     if (!user)
       return res.status(404).json({ email: "This user does not exist" });
 
-    bcrypt.compare(password, user.password).then((isMatch: any) => {
+    bcrypt.compare(password, user.password).then((isMatch) => {
       if (isMatch) {
-        const payload = {
-          id: user.id,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          address: user.address,
-          city: user.city,
-          state: user.state,
-          zipCode: user.zipCode,
-          profilePhoto: user.profilePhoto,
-          postings: user.postings,
-        };
-
-        const key: Secret | any = process.env.secretOrKey;
-        jwt.sign(
-          payload,
-          key,
-          { expiresIn: 3600 },
-          (err: Error | null, encoded: string | undefined) => {
-            res.json({
-              success: true,
-              token: "Bearer " + encoded,
-            });
-          }
-        );
+        signJwt(res, user);
       } else {
         errors.password = "Incorrect password";
         return res.status(400).json(errors);
@@ -131,34 +108,7 @@ router.post("/signup", (req, res) => {
           newUser.password = hash;
           newUser
             .save()
-            .then((user: UserPropsModel) => {
-              const payload = {
-                id: user.id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                email: user.email,
-                profilePhoto: user.profilePhoto,
-              };
-
-              const key: string | any = process.env.secretOrKey;
-              const options: SignOptions = { expiresIn: 3600 };
-              const cb: SignCallback = (
-                err: Error | null,
-                encoded: string | undefined
-              ) => {
-                if (err) {
-                  res.status(400).json(err);
-                } else {
-                  res.json({
-                    success: true,
-                    token: "Bearer " + encoded,
-                    user,
-                  });
-                }
-              };
-
-              jwt.sign(payload, key, options, cb);
-            })
+            .then((user: UserPropsModel) => signJwt(res, user))
             .catch((err: any) => res.status(400).json(err));
         });
       });
@@ -226,7 +176,6 @@ router.get(
 );
 
 router.put("/:id", upload.single("file"), (req, res) => {
-  console.log(req.body);
   const { errors, isValid } = validateUserInput(req.body);
   if (!isValid) return res.status(400).json(errors);
 
@@ -243,7 +192,9 @@ router.put("/:id", upload.single("file"), (req, res) => {
 
         user
           .save()
-          .then((savedUser: any) => res.status(200).json(savedUser))
+          .then((savedUser: any) => {
+            signJwt(res, savedUser);
+          })
           .catch((err: any) => res.json(err));
       })
       .catch((err: any) => res.status(400).json(err));
