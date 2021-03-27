@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema<UserPropsModel>(
     },
     confirmPassword: {
       type: String,
-      required: true,
+      required: false,
     },
     address: {
       type: String,

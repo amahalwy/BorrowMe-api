@@ -226,6 +226,7 @@ router.get(
 );
 
 router.put("/:id", upload.single("file"), (req, res) => {
+  console.log(req.body);
   const { errors, isValid } = validateUserInput(req.body);
   if (!isValid) return res.status(400).json(errors);
 

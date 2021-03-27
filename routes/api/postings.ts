@@ -14,6 +14,30 @@ router.get("/", (req, res) => {
     .catch((err: any) => res.status(402).json(err));
 });
 
+router.get("/fetchThree/:number", (req, res) => {
+  Posting.find()
+    .skip(Number(req.params.number))
+    .limit(3)
+    .then((postings) => res.json(postings))
+    .catch((err: any) => res.status(402).json(err));
+});
+
+router.get("/fetchOne/:number", (req, res) => {
+  Posting.find()
+    .skip(Number(req.params.number))
+    .limit(1)
+    .then((postings) => res.json(postings))
+    .catch((err: any) => res.status(402).json(err));
+});
+
+router.get("/initial", (req, res) => {
+  Posting.find()
+    .skip(0)
+    .limit(3)
+    .then((postings) => res.json(postings))
+    .catch((err: any) => res.status(402).json(err));
+});
+
 router.get("/ownerId", (req, res) => {
   Posting.findById(req.params.id)
     .populate({
