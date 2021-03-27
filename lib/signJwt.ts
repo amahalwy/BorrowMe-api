@@ -7,6 +7,10 @@ export const signJwt = (res: any, user: UserPropsModel) => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
+    address: user.address,
+    city: user.city,
+    state: user.state,
+    zipCode: user.zipCode,
     profilePhoto: user.profilePhoto,
   };
 
