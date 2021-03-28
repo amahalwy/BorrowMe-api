@@ -19,9 +19,6 @@ const options: ConnectOptions = {
 
 mongoose.connect(uri, options);
 
-// .then(() => console.log("Connected to MongoDB successfully"))
-// .catch((err: any) => console.log(err));
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

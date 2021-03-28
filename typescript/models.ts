@@ -1,4 +1,3 @@
-import { String } from "aws-sdk/clients/cloudsearch";
 import { Document } from "mongoose";
 
 export interface PostingPropsModel extends Document {
@@ -36,7 +35,7 @@ export interface RequestPropsModel extends Document {
 }
 
 export interface UserPropsModel extends Document {
-  id?: String;
+  id?: string;
   firstName: string;
   lastName: string;
   email: string;
