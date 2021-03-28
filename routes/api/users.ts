@@ -1,3 +1,4 @@
+import { convertURl } from "./../../lib/convertS3BucketUrl";
 import uploadImage from "../../lib/uploadImage";
 import {
   BookingPropsModel,
@@ -8,7 +9,6 @@ import {
 import { Router } from "express";
 import bcrypt from "bcryptjs";
 import passport from "passport";
-import jwt, { SignCallback, SignOptions } from "jsonwebtoken";
 import User from "../../models/User";
 import Posting from "../../models/Posting";
 import Booking from "../../models/Booking";
@@ -36,10 +36,10 @@ router.get(
   }
 );
 
-router.get("/current", (req: any) => {
-  const token = req.body.token;
-  console.log(token);
-});
+// router.get("/current", (req: any) => {
+//   const token = req.body.token;
+//   console.log(token);
+// });
 
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
@@ -192,16 +192,14 @@ router.put("/:id", upload.single("file"), (req, res) => {
 
         user
           .save()
-          .then((savedUser: any) => {
-            signJwt(res, savedUser);
-          })
+          .then((savedUser: any) => signJwt(res, savedUser))
           .catch((err: any) => res.json(err));
       })
       .catch((err: any) => res.status(400).json(err));
   } else {
     uploadImage(req.file)
       .then((data) => {
-        const uploadedImageURL = data.Location;
+        const uploadedImageURL = convertURl(data.Location);
         User.findOne({ email: req.body.email })
           .then((user: UserPropsModel | null | any) => {
             user.firstName = req.body.firstName;
@@ -214,7 +212,7 @@ router.put("/:id", upload.single("file"), (req, res) => {
 
             user
               .save()
-              .then((savedUser: any) => res.status(200).json(savedUser))
+              .then((savedUser: any) => signJwt(res, savedUser))
               .catch((err: any) => res.json(err));
           })
           .catch((err: any) => res.status(400).json(err));
