@@ -5,12 +5,9 @@
   "main": "app.ts",
   "scripts": {
     "build": "rimraf dist && tsc",
-    "preserve": "npm run build",
+    "start": "NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 node dist/app.js",
     "serve": "cross-env NODE_ENV=development concurrently \"tsc --watch\" \"nodemon -q dist/app.js\"",
-    "prestart": "npm run build",
-    "start": "cross-env NODE_ENV=production node dist/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "node --loader ts-node/esm app.ts",
+    "server": "ts-node-dev app.ts",
     "dev": "npm run server",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && tsc"
   },
@@ -72,6 +69,7 @@
     "redux-logger": "^3.0.6",
     "rimraf": "^2.7.1",
     "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.6",
     "typescript": "^4.2.3",
     "uuid": "^8.3.0",
     "validator": "^13.1.1"
