@@ -1,7 +1,7 @@
 import passport = require("passport");
 import multer = require("multer");
 import { Router } from "express";
-import { PostingPropsModel } from "../../typescript/models";
+import { PostingModel } from "../../typescript/models";
 import validatePostingInput from "../../validation/postings";
 import uploadImage from "../../lib/uploadImage";
 import Posting from "../../models/Posting";
@@ -10,6 +10,7 @@ const router = Router();
 
 router.get("/", (req, res) => {
   Posting.find()
+    .populate("bookings")
     .then((postings) => res.json(postings))
     .catch((err: any) => res.status(402).json(err));
 });
@@ -69,7 +70,7 @@ router.get("/:postingId", (req, res) => {
 //     uploadImage(req.file)
 //       .then((data) => {
 //         const uploadedImageURL = data.Location;
-//         const newPosting: PostingPropsModel = new Posting({
+//         const newPosting: PostingModel = new Posting({
 //           ownerId: req.user,
 //           title: req.body.title,
 //           description: req.body.description,
@@ -104,7 +105,7 @@ router.get("/:postingId", (req, res) => {
 //       .then((data) => {
 //         const uploadedImageURL = data.Location;
 
-//         Posting.findOne(req.body._id).then((posting: PostingPropsModel) => {
+//         Posting.findOne(req.body._id).then((posting: PostingModel) => {
 //           posting.ownerId = req.body.ownerId;
 //           posting.title = req.body.title;
 //           posting.description = req.body.description;
