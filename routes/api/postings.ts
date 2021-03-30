@@ -42,19 +42,10 @@ router.get("/initial", (req, res) => {
     .catch((err: any) => res.status(404).json(err));
 });
 
-router.get("/search/name=:name", (req, res) => {
-  Posting.find({
-    title: { $regex: req.params.name, $options: "i" },
-  })
-    .populate("bookings")
-    .then((postings) => res.json(postings))
-    .catch((err: any) => res.status(404).json(err));
-});
-
-router.get("/search/tag=:tag", (req, res) => {
-  Posting.find({
-    tags: { $regex: req.params.tag, $options: "i" },
-  })
+router.get("/search/?", (req, res) => {
+  const searchQuery = Object.keys(req.query)[0];
+  const value = Object.values(req.query)[0];
+  Posting.find({ [searchQuery]: { $regex: value, $options: "i" } })
     .populate("bookings")
     .then((postings) => res.json(postings))
     .catch((err: any) => res.status(404).json(err));
