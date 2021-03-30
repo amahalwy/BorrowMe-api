@@ -1,14 +1,13 @@
 import { convertURl } from "./../../lib/convertS3BucketUrl";
 import uploadImage from "../../lib/uploadImage";
 import {
-  BookingPropsModel,
-  PostingPropsModel,
-  RequestPropsModel,
-  UserPropsModel,
+  BookingModel,
+  PostingModel,
+  RequestModel,
+  UserModel,
 } from "../../typescript/models";
 import { Router } from "express";
 import bcrypt from "bcryptjs";
-import passport from "passport";
 import User from "../../models/User";
 import Posting from "../../models/Posting";
 import Booking from "../../models/Booking";
@@ -22,24 +21,11 @@ import { signJwt } from "../../lib/signJwt";
 const router = Router();
 const upload = multer();
 
-router.get(
-  "/",
-  (res: {
-    json: (arg0: any) => any;
-    status: (
-      arg0: number
-    ) => { (): any; new (): any; json: { (arg0: any): any; new (): any } };
-  }) => {
-    User.find()
-      .then((users: any) => res.json(users))
-      .catch((err: any) => res.status(400).json(err));
-  }
-);
-
-// router.get("/current", (req: any) => {
-//   const token = req.body.token;
-//   console.log(token);
-// });
+router.get("/", (req, res) => {
+  User.find()
+    .then((users) => res.json(users))
+    .catch((err) => res.status(400).json(err));
+});
 
 router.post("/login", (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
@@ -83,7 +69,7 @@ router.post("/signup", (req, res) => {
         city,
         state,
         zipCode,
-      }: UserPropsModel = req.body;
+      }: UserModel = req.body;
       const _user = {
         firstName,
         lastName,
@@ -99,16 +85,14 @@ router.post("/signup", (req, res) => {
       };
 
       const newUser = new User(_user);
-
       bcrypt.genSalt(10, (err: Error, salt: string) => {
         const password: string | any = _user.password;
-
         bcrypt.hash(password, salt, (err: Error, hash: string) => {
           if (err) throw err;
           newUser.password = hash;
           newUser
             .save()
-            .then((user: UserPropsModel) => signJwt(res, user))
+            .then((user: UserModel) => signJwt(res, user))
             .catch((err: any) => res.status(400).json(err));
         });
       });
@@ -118,62 +102,42 @@ router.post("/signup", (req, res) => {
 
 router.get("/:userId", (req, res) => {
   User.findOne({ _id: req.params.userId })
-    .then((user: UserPropsModel | null | any) => res.json(user))
+    .then((user: UserModel | null | any) => res.json(user))
     .catch((err: {}) => res.status(400).json(err));
 });
 
-router.get(
-  "/:userId/postings",
-  upload.single("file"),
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Posting.find({ ownerId: req.params.userId })
-      .then((postings: PostingPropsModel[]) => res.json(postings))
-      .catch((err: {}) => res.status(400).json(err));
-  }
-);
+router.get("/:userId/postings", (req, res) => {
+  Posting.find({ ownerId: req.params.userId })
+    .then((postings: PostingModel[]) => res.json(postings))
+    .catch((err: {}) => res.status(400).json(err));
+});
 
 // Users' requests (as requestor)
-router.get(
-  "/:userId/requests/requestor",
-  upload.single("file"),
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Request.find({ requestorId: req.params.userId })
-      .then((requests: RequestPropsModel[]) => res.json(requests))
-      .catch((err: {}) => res.status(400).json(err));
-  }
-);
+router.get("/:userId/requests/requestor", (req, res) => {
+  Request.find({ requestorId: req.params.userId })
+    .then((requests: RequestModel[]) => res.json(requests))
+    .catch((err: {}) => res.status(400).json(err));
+});
 
 // Users' requests (as receiver)
-router.get("/:userId/requests/receiver", upload.single("file"), (req, res) => {
+router.get("/:userId/requests/receiver", (req, res) => {
   Request.find({ receiverId: req.params.userId })
-    .then((requests: RequestPropsModel[]) => res.json(requests))
+    .then((requests: RequestModel[]) => res.json(requests))
     .catch((err: {}) => res.status(400).json(err));
 });
 
 // Users' bookings
-router.get(
-  "/:userId/bookings/owner",
-  upload.single("file"),
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Booking.find({ ownerId: req.params.userId })
-      .then((bookings: BookingPropsModel[]) => res.json(bookings))
-      .catch((err: {}) => res.status(400).json(err));
-  }
-);
+router.get("/:userId/bookings/owner", (req, res) => {
+  Booking.find({ ownerId: req.params.userId })
+    .then((bookings: BookingModel[]) => res.json(bookings))
+    .catch((err: {}) => res.status(400).json(err));
+});
 
-router.get(
-  "/:userId/bookings/renter",
-  upload.single("file"),
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Booking.find({ requestorId: req.params.userId })
-      .then((bookings: BookingPropsModel[]) => res.json(bookings))
-      .catch((err: {}) => res.status(400).json(err));
-  }
-);
+router.get("/:userId/bookings/renter", (req, res) => {
+  Booking.find({ requestorId: req.params.userId })
+    .then((bookings: BookingModel[]) => res.json(bookings))
+    .catch((err: {}) => res.status(400).json(err));
+});
 
 router.put("/:id", upload.single("file"), (req, res) => {
   const { errors, isValid } = validateUserInput(req.body);
@@ -181,7 +145,7 @@ router.put("/:id", upload.single("file"), (req, res) => {
 
   if (!req.file) {
     User.findOne({ email: req.body.email })
-      .then((user: UserPropsModel | null | any) => {
+      .then((user: UserModel | null | any) => {
         user.firstName = req.body.firstName;
         user.lastName = req.body.lastName;
         user.address = req.body.address;
@@ -193,7 +157,7 @@ router.put("/:id", upload.single("file"), (req, res) => {
         user
           .save()
           .then((savedUser: any) => signJwt(res, savedUser))
-          .catch((err: any) => res.json(err));
+          .catch((err: any) => res.status(400).json(err));
       })
       .catch((err: any) => res.status(400).json(err));
   } else {
@@ -201,7 +165,7 @@ router.put("/:id", upload.single("file"), (req, res) => {
       .then((data) => {
         const uploadedImageURL = convertURl(data.Location);
         User.findOne({ email: req.body.email })
-          .then((user: UserPropsModel | null | any) => {
+          .then((user: UserModel | null | any) => {
             user.firstName = req.body.firstName;
             user.lastName = req.body.lastName;
             user.address = req.body.address;
@@ -213,7 +177,7 @@ router.put("/:id", upload.single("file"), (req, res) => {
             user
               .save()
               .then((savedUser: any) => signJwt(res, savedUser))
-              .catch((err: any) => res.json(err));
+              .catch((err: any) => res.status(400).json(err));
           })
           .catch((err: any) => res.status(400).json(err));
       })
