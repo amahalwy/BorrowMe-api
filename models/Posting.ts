@@ -1,9 +1,15 @@
-import { PostingPropsModel } from "./../typescript/models";
+import { PostingModel } from "./../typescript/models";
 import mongoose, { model, Schema } from "mongoose";
 
-const PostingSchema = new mongoose.Schema<PostingPropsModel>(
+const PostingSchema = new mongoose.Schema<PostingModel>(
   {
     ownerId: { type: Schema.Types.ObjectId, ref: "User" },
+    bookings: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Booking",
+      },
+    ],
     title: {
       type: String,
       required: true,
@@ -50,5 +56,5 @@ const PostingSchema = new mongoose.Schema<PostingPropsModel>(
   }
 );
 
-const Posting = model<PostingPropsModel>("Posting", PostingSchema);
+const Posting = model<PostingModel>("Posting", PostingSchema);
 export default Posting;
