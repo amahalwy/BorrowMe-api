@@ -29,6 +29,10 @@ const RequestSchema = new mongoose.Schema<RequestModel>(
       type: String,
       required: true,
     },
+    owner: {
+      type: Boolean,
+      required: true,
+    },
   },
   {
     timestamps: true,
