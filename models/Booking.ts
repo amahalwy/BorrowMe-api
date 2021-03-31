@@ -1,21 +1,12 @@
-import { BookingPropsModel } from "./../typescript/models";
+import { BookingModel } from "./../typescript/models";
 import mongoose, { model, Schema } from "mongoose";
 
-const BookingSchema = new mongoose.Schema<BookingPropsModel>(
+const BookingSchema = new mongoose.Schema<BookingModel>(
   {
-    ownerId: {
-      type: String,
-      required: true,
-    },
-    requestorId: {
-      type: String,
-      required: true,
-    },
+    postingId: { type: Schema.Types.ObjectId, ref: "Posting" },
+    ownerId: { type: Schema.Types.ObjectId, ref: "User" },
+    requestorId: { type: Schema.Types.ObjectId, ref: "User" },
     requestorName: {
-      type: String,
-      required: true,
-    },
-    postingId: {
       type: String,
       required: true,
     },
@@ -37,5 +28,5 @@ const BookingSchema = new mongoose.Schema<BookingPropsModel>(
   }
 );
 
-const Booking = model<BookingPropsModel>("Booking", BookingSchema);
+const Booking = model<BookingModel>("Booking", BookingSchema);
 export default Booking;

@@ -1,7 +1,7 @@
-import { UserPropsModel } from "./../typescript/models";
+import { UserModel } from "./../typescript/models";
 import mongoose, { model, Schema } from "mongoose";
 
-const UserSchema = new mongoose.Schema<UserPropsModel>(
+const UserSchema = new mongoose.Schema<UserModel>(
   {
     postings: [{ type: Schema.Types.ObjectId, ref: "Posting" }],
     requests: [{ type: Schema.Types.ObjectId, ref: "Request" }],
@@ -55,5 +55,5 @@ const UserSchema = new mongoose.Schema<UserPropsModel>(
   }
 );
 
-const User = model<UserPropsModel>("User", UserSchema);
+const User = model<UserModel>("User", UserSchema);
 export default User;

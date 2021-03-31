@@ -1,6 +1,6 @@
 import { Document } from "mongoose";
 
-export interface PostingPropsModel extends Document {
+export interface PostingModel extends Document {
   ownerId?: string;
   title?: string;
   description?: string;
@@ -11,9 +11,10 @@ export interface PostingPropsModel extends Document {
   city?: string;
   state?: string;
   zipCode?: string;
+  bookings?: BookingModel[];
 }
 
-export interface BookingPropsModel extends Document {
+export interface BookingModel extends Document {
   ownerId?: string;
   requestorId?: string;
   requestorName?: string;
@@ -23,7 +24,7 @@ export interface BookingPropsModel extends Document {
   bookingImage?: string;
 }
 
-export interface RequestPropsModel extends Document {
+export interface RequestModel extends Document {
   requestorName?: string;
   requestorId?: string;
   receiverId?: string;
@@ -32,9 +33,10 @@ export interface RequestPropsModel extends Document {
   postingImage?: string;
   postingTitle?: string;
   amount?: string;
+  owner?: boolean;
 }
 
-export interface UserPropsModel extends Document {
+export interface UserModel extends Document {
   id?: string;
   firstName: string;
   lastName: string;
