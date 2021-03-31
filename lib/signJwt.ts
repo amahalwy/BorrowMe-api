@@ -1,7 +1,7 @@
 import jwt, { SignOptions, SignCallback } from "jsonwebtoken";
-import { UserPropsModel } from "../typescript/models";
+import { UserModel } from "../typescript/models";
 
-export const signJwt = (res: any, user: UserPropsModel) => {
+export const signJwt = (res: any, user: UserModel) => {
   const payload = {
     id: user.id,
     firstName: user.firstName,
