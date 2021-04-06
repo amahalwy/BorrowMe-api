@@ -12,31 +12,43 @@ router.get("/", (req, res) => {
   Posting.find()
     .populate("bookings")
     .then((postings) => res.json(postings))
-    .catch((err: any) => res.status(402).json(err));
+    .catch((err: any) => res.status(404).json(err));
 });
 
 router.get("/fetchThree/:number", (req, res) => {
   Posting.find()
+    .populate("bookings")
     .skip(Number(req.params.number))
     .limit(3)
     .then((postings) => res.json(postings))
-    .catch((err: any) => res.status(402).json(err));
+    .catch((err: any) => res.status(404).json(err));
 });
 
 router.get("/fetchOne/:number", (req, res) => {
   Posting.find()
+    .populate("bookings")
     .skip(Number(req.params.number))
     .limit(1)
     .then((postings) => res.json(postings))
-    .catch((err: any) => res.status(402).json(err));
+    .catch((err: any) => res.status(404).json(err));
 });
 
 router.get("/initial", (req, res) => {
   Posting.find()
+    .populate("bookings")
     .skip(0)
     .limit(3)
     .then((postings) => res.json(postings))
-    .catch((err: any) => res.status(402).json(err));
+    .catch((err: any) => res.status(404).json(err));
+});
+
+router.get("/search/?", (req, res) => {
+  const searchQuery = Object.keys(req.query)[0];
+  const value = Object.values(req.query)[0];
+  Posting.find({ [searchQuery]: { $regex: value, $options: "i" } })
+    .populate("bookings")
+    .then((postings) => res.json(postings))
+    .catch((err: any) => res.status(404).json(err));
 });
 
 router.get("/ownerId", (req, res) => {
@@ -55,6 +67,7 @@ router.get("/ownerId", (req, res) => {
 
 router.get("/:postingId", (req, res) => {
   Posting.findById(req.params.postingId)
+    .populate("bookings")
     .then((postings) => res.json(postings))
     .catch((err: any) => res.status(400).json(err));
 });
